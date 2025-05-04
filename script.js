@@ -1,3 +1,9 @@
+const userInput = document.getElementById("city-input");
+const searchButton = document.getElementById("search-button");
+
+const cityNameCard = document.querySelector(".city");
+const cityDataCard = document.querySelector(".city-data");
+
 async function getWeatherData(cityName) {
   try {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=8982eac9681b6860f252c3f99695a774&units=metric`;
@@ -23,13 +29,17 @@ async function getCityData(cityName) {
 }
 
 function displayWeatherData(cityName) {
-  getWeatherData(cityName).then((data) => {
-    console.log(data);
-  });
+  getWeatherData(cityName).then((data) => {});
 }
 
 function displayCityData(cityName) {
-  getCityData(cityName).then((data) => console.log(data));
+  getCityData(cityName).then((data) => {
+    cityNameCard.textContent = `${data.title}`;
+    cityDataCard.textContent = `${data.extract}`;
+  });
 }
 
-displayCityData("cairo");
+searchButton.addEventListener("click", () => {
+  let city = userInput.value;
+  displayCityData(city);
+});
