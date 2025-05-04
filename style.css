@@ -1,0 +1,76 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Roboto Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  height: 100vh;
+  background-image: url("./Cover.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.country-bar {
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid white;
+  border-radius: 32px;
+}
+
+.temp-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  transform: translatey(8px);
+}
+
+#country-input {
+  width: 50%;
+  height: 40px;
+  margin-bottom: 6px;
+  font: inherit;
+  display: inline-block;
+}
+
+#country-input::placeholder {
+  color: white;
+  font: inherit;
+}
+
+input, input:focus {
+  background-color: transparent ;
+  color: white; 
+  border: none; 
+  outline: none;
+}
+
+#search-button {
+  display: inline-block;
+  padding: 4px;
+  margin-left: 20%;
+  width: 20%;
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font: inherit;
+  font-weight: 600;
+  transform: translateY(2px);
+}
+
+#search-button:hover {
+  cursor: pointer;
+}
