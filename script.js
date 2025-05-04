@@ -21,3 +21,15 @@ async function getCityData(cityName) {
     console.error("Error fetching data:", error.message);
   }
 }
+
+function displayWeatherData(cityName) {
+  getWeatherData(cityName).then((data) => {
+    console.log(data);
+  });
+}
+
+function displayCityData(cityName) {
+  getCityData(cityName).then((data) => console.log(data));
+}
+
+displayCityData("cairo");
