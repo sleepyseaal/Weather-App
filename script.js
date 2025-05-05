@@ -121,7 +121,14 @@ function searchCity() {
   displayWeatherData(city);
 }
 
-searchButton.addEventListener("click", searchCity);
+searchButton.addEventListener("click", () => {
+  // Prevent the user from leaving the input area empty
+  if (!userInput.value.trim()) {
+    alert("Please type a city name");
+  } else {
+    searchCity();
+  }
+});
 
 userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
