@@ -11,6 +11,10 @@ const weatherDescriptionCard = document.querySelector(".weather-state2");
 const tempIcon = document.querySelector(".icon");
 const currentDate = document.querySelector(".date");
 
+const windSpeedCard = document.querySelector(".wind-speed");
+const minTempCard = document.querySelector(".min-temp");
+const maxTempCard = document.querySelector(".max-temp");
+
 async function getWeatherData(cityName) {
   try {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=8982eac9681b6860f252c3f99695a774&units=metric`;
@@ -38,6 +42,7 @@ async function getCityData(cityName) {
 function displayWeatherData(cityName) {
   getWeatherData(cityName).then((data) => {
     const degree = data.list[0].main.temp;
+
     tempCard.textContent = `${degree}°`;
 
     const weatherState = getTemperatureState(degree);
@@ -47,7 +52,6 @@ function displayWeatherData(cityName) {
 
     // Get weather state
     const condition = data.list[0].weather[0].main;
-    console.log(condition);
 
     // Display appropriate icon for the weather state
     if (condition === "Rain") {
@@ -57,6 +61,11 @@ function displayWeatherData(cityName) {
     } else {
       tempIcon.setAttribute("src", "./Icons/clouds.svg");
     }
+
+    windSpeedCard.textContent = `${data.list[0].wind.speed}`;
+    minTempCard.textContent = `${data.list[0].main.temp_min}°`;
+    maxTempCard.textContent = `${data.list[0].main.temp_max}°`;
+    console.log(data.list[0].main.temp_min);
   });
 }
 
@@ -80,8 +89,6 @@ function getTemperatureState(temp) {
 function displayCityData(cityName) {
   getCityData(cityName).then((data) => {
     cityNameCard.textContent = `${data.title}`;
-
-    // display informations about the city
     cityDataCard.textContent = `${data.extract}`;
   });
 }
