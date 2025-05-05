@@ -20,10 +20,13 @@ function loadFromSessionStorage() {
   const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
   const cityData = JSON.parse(sessionStorage.getItem("cityData"));
 
-  console.log(cityData);
-
-  displayCityData(cityData.title);
-  displayWeatherData(cityData.title);
+  // Make cairo the default city when starting a new browsing session
+  !cityData ? displayCityData("Cairo") : displayCityData(cityData.title);
+  if (!weatherData) {
+    displayWeatherData("Cairo");
+  } else {
+    displayWeatherData(cityData.title);
+  }
 }
 
 async function getWeatherData(cityName) {
