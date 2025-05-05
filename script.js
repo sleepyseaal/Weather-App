@@ -15,12 +15,27 @@ const windSpeedCard = document.querySelector(".wind-speed");
 const minTempCard = document.querySelector(".min-temp");
 const maxTempCard = document.querySelector(".max-temp");
 
+// Load the city's data from session storage
+function loadFromSessionStorage() {
+  const weatherData = JSON.parse(sessionStorage.getItem("weatherData"));
+  const cityData = JSON.parse(sessionStorage.getItem("cityData"));
+
+  console.log(cityData);
+
+  displayCityData(cityData.title);
+  displayWeatherData(cityData.title);
+}
+
 async function getWeatherData(cityName) {
   try {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=8982eac9681b6860f252c3f99695a774&units=metric`;
 
     const response = await fetch(url);
     const data = await response.json();
+
+    // Save weatherData to session storage
+    sessionStorage.setItem("weatherData", JSON.stringify(data));
+
     return data;
   } catch (error) {
     console.error(error);
@@ -33,6 +48,10 @@ async function getCityData(cityName) {
 
     const response = await fetch(url);
     const data = await response.json();
+
+    // Save summary infromations about the city at session storage
+    sessionStorage.setItem("cityData", JSON.stringify(data));
+
     return data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -94,7 +113,7 @@ function displayCityData(cityName) {
 }
 
 searchButton.addEventListener("click", () => {
-  let city = userInput.value;
+  city = userInput.value;
   displayCityData(city);
   displayWeatherData(city);
 });
@@ -111,4 +130,6 @@ function displayDate() {
   currentDate.textContent = `${weekDay}, ${day}${month}, ${year}`;
 }
 
-setInterval(displayDate, 1000);
+displayDate();
+
+loadFromSessionStorage();
