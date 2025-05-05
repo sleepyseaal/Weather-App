@@ -115,10 +115,18 @@ function displayCityData(cityName) {
   });
 }
 
-searchButton.addEventListener("click", () => {
-  city = userInput.value;
+function searchCity() {
+  let city = userInput.value;
   displayCityData(city);
   displayWeatherData(city);
+}
+
+searchButton.addEventListener("click", searchCity);
+
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    searchCity();
+  }
 });
 
 function displayDate() {
