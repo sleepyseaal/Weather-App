@@ -8,6 +8,9 @@ const cityDataCard = document.querySelector(".city-data");
 const weatherStateCard = document.querySelector(".weather-state1");
 const weatherDescriptionCard = document.querySelector(".weather-state2");
 
+const tempIcon = document.querySelector(".icon");
+const currentDate = document.querySelector(".date");
+
 async function getWeatherData(cityName) {
   try {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=8982eac9681b6860f252c3f99695a774&units=metric`;
@@ -35,54 +38,47 @@ async function getCityData(cityName) {
 function displayWeatherData(cityName) {
   getWeatherData(cityName).then((data) => {
     const degree = data.list[0].main.temp;
-
-    // Display temp degree
     tempCard.textContent = `${degree}°`;
-
-    // Get weather state based on temp degree
-    function getTemperatureState(temp) {
-      let category;
-
-      // Categorizing weather state
-      if (temp <= 0) {
-        category = "freezing";
-      } else if (temp <= 10) {
-        category = "cold";
-      } else if (temp <= 20) {
-        category = "mild";
-      } else if (temp <= 30) {
-        category = "warm";
-      } else {
-        category = "hot";
-      }
-
-      switch (category) {
-        case "freezing":
-          return "Freezing ❄️";
-        case "cold":
-          return "Cold 🧥";
-        case "mild":
-          return "Mild 🌤️";
-        case "warm":
-          return "Warm ☀️";
-        case "hot":
-          return "Hot 🔥";
-        default:
-          return "Unknown";
-      }
-    }
 
     const weatherState = getTemperatureState(degree);
     weatherStateCard.textContent = weatherState;
 
-    // Display weather description
     weatherDescriptionCard.textContent = `With ${data.list[0].weather[0].description}`;
+
+    // Get weather state
+    const condition = data.list[0].weather[0].main;
+    console.log(condition);
+
+    // Display appropriate icon for the weather state
+    if (condition === "Rain") {
+      tempIcon.setAttribute("src", "./Icons/rainny.svg");
+    } else if (condition === "Clear") {
+      tempIcon.setAttribute("src", "./Icons/sunny.svg");
+    } else {
+      tempIcon.setAttribute("src", "./Icons/clouds.svg");
+    }
   });
+}
+
+// Cateogrizing temp states based on temp degree
+function getTemperatureState(temp) {
+  let category;
+
+  if (temp <= 0) {
+    return "Freezing";
+  } else if (temp <= 10) {
+    return "Cold";
+  } else if (temp <= 20) {
+    return "Mild";
+  } else if (temp <= 30) {
+    return "Warm";
+  } else {
+    return "Hot";
+  }
 }
 
 function displayCityData(cityName) {
   getCityData(cityName).then((data) => {
-    // Display city's name
     cityNameCard.textContent = `${data.title}`;
 
     // display informations about the city
@@ -95,3 +91,17 @@ searchButton.addEventListener("click", () => {
   displayCityData(city);
   displayWeatherData(city);
 });
+
+function displayDate() {
+  const date = new Date();
+  const day = date.getDate();
+  // Convert month number to it's name(ex: 2 to Feb)
+  const month = date.toLocaleString("default", { month: "short" });
+  const year = date.getFullYear();
+  // Get current day of the week
+  const weekDay = date.toLocaleString("default", { weekday: "long" });
+
+  currentDate.textContent = `${weekDay}, ${day}${month}, ${year}`;
+}
+
+setInterval(displayDate, 1000);
