@@ -112,6 +112,7 @@ input, input:focus {
   color: white;
   font-size: 1.4rem;
   opacity: 70%;
+  margin-bottom: 10px;
 }
 
 .weather-state {
