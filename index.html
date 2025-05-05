@@ -12,34 +12,38 @@
       weather, climate tracking, forecast app, weather notifications, weather
       conditions, storm tracking">
     <title>Weather App</title>
-    <link rel="icon" href="Icon.svg">
+    <link rel="icon" href="./Icons/Icon.svg">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
   </head>
 
   <body>
-    <div class="city-bar">
+    <div class="city-bar" role="region" aria-label="City Controls">
       <div class="input-field">
-        <img src="temp-icon.svg" alt class="temp-icon">
+        <img src="./Icons/temp.svg" alt class="temp-icon">
+
         <input type="text" name="city" id="city-input"
           placeholder="Type your city name.." autofocus>
         <button id="search-button">Search</button>
         <hr>
       </div>
 
-      <div class="temp">20°</div>
+      <div class="temp" aria-label="Current Weather Temperature">20°</div>
 
-      <section class="city-info">
+      <article class="city-info">
         <h2 class="city">Paris</h2>
         <p class="city-data">Lorem ipsum dolor sit amet consectetur adipisicing
           elit. Facilis
           dolore doloremque exercitationem enim dicta quos deserunt eius cumque
           earum tempora voluptatibus, optio excepturi totam aliquam numquam
           quaerat officia nam laudantium!</p>
-      </section>
+      </article>
     </div>
-    <div class="content-container">
 
-    </div>
+    <main class="content-container">
+      <h1 class="weather-title">Weather Forecast</h1>
+      <p class="weather-state weather-state1">Storm</p>
+      <p class="weather-state weather-state2">With Heavey Rain</p>
+    </main>
   </body>
 </html>
